@@ -1,0 +1,15 @@
+ /*rexx*/
+ /*********************************************/
+ /* REXX Script to Ping all hosts in class C  */
+ /* By: Soldier of Fortran (@mainframed767)   */
+ /*********************************************/
+say "Enter IP range (i.e. 192.168.0):"
+pull IP
+DO OCTET = 0 TO 255
+   IP_LOOP = IP||'.'||OCTET
+   rc_out = OUTTRAP('ping.')
+   ping IP_LOOP "(timeout 1"
+   rc_out = OUTTRAP('OFF')
+   if rc = 0 then
+    say "" IP_LOOP 'up'
+END
