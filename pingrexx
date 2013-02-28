@@ -3,6 +3,18 @@
  /* REXX Script to Ping all hosts in class C  */
  /* By: Soldier of Fortran (@mainframed767)   */
  /*********************************************/
+
+say "      _______________ ___________"
+say "      |             ~|          ~|"
+say "_____ |              |      _____| ____"
+say "%%%%% |    _    _    |      __/   %%%%%"
+say "~~~~~ |   ~|   ~|    |      |    ~~~~~~"
+say "      |____|    |    |______|"
+say "           |____|____|"
+say "_______________________________________"
+say "%%%%%%%%%|MaInFrAMed pREsEnts|%%%%%%%%%"
+say "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
 say "Enter IP range (i.e. 192.168.0):"
 pull IP
 DO OCTET = 0 TO 255
@@ -13,3 +25,4 @@ DO OCTET = 0 TO 255
    if rc = 0 then
     say "" IP_LOOP 'up'
 END
+say "
