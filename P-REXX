@@ -1,0 +1,32 @@
+ /*rexx*/
+ /*********************************************/
+ /* REXX Script to Ping all hosts in class C  */
+ /* By: Soldier of Fortran (@mainframed767)   */
+ /*********************************************/
+ 
+PARSE SOURCE NAME
+say "      _______________ ___________"
+say "      |             :|          :|"
+say "_____ |              |      _____| ____"
+say "%%%%% |    _    _    |      __/   %%%%%"
+say "===== |   :|   :|    |      |    ======"
+say "      |____|    |    |______|"
+say "           |____|____|"
+say "_______________________________________"
+say "%%%%%%%%%|MaInFrAMed pREsEnts|%%%%%%%%%"
+say "======================================="
+say "----|-         P-REXX               -|-"
+say "----|- The Mainframe Ping Sweep tool-|-"
+say "======================================="
+say ""
+say "Enter IP range (i.e. 192.168.0):"
+pull IP
+DO OCTET = 0 TO 255
+   IP_LOOP = IP||'.'||OCTET
+   rc_out = OUTTRAP('ping.')
+   ping IP_LOOP "(timeout 1"
+   rc_out = OUTTRAP('OFF')
+   if rc = 0 then
+    say '----|- Address' IP_LOOP 'up'
+END
+say "ROAR!"
