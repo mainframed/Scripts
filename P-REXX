@@ -27,6 +27,6 @@ DO OCTET = 0 TO 255
    ping IP_LOOP "(timeout 1"
    rc_out = OUTTRAP('OFF')
    if rc = 0 then
-    say '----|- Address' IP_LOOP 'up'
+    say '--|- Address' IP_LOOP 'up'
 END
 say "ROAR!"
