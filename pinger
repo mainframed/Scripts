@@ -1,0 +1,65 @@
+/* RExX */
+/* trace t */
+file_name = create_pds()
+DO While file_name = 1
+ file_name = create_pds()
+END
+ADDRESS ISPEXEC "LIBDEF ISPPLIB DATASET ID("file_name")"
+ADDRESS ISPEXEC "DISPLAY PANEL(TEMP1)"
+Do While RC = 0
+   tgt = ip
+   IF timeout = '' THEN tout = 10
+   ELSE tout = timeout
+   rc_out = OUTTRAP('ping.')
+   address tso 'ping' tgt '(timeout' tout
+   rc_out = OUTTRAP('OFF')
+   IF rc = 0 then hp = 'THiS HoST iS ALiVe!'
+   ELSE hp = 'THiS HoST iS DoWN, Yo :('
+   ADDRESS ISPEXEC "DISPLAY PANEL(TEMP1)"
+END
+ADDRESS ISPEXEC "LIBDEF ISPPLIB DATASET ID()"
+SAY "DeLeTiNG TeMP DaTaSeT"
+"DELETE "file_name
+EXIT
+/* Create PDS Function */
+create_pds:
+  stem.0 = 26
+  stem.1 = ')ATTR DEFAULT(%+_)'
+  stem.2 = '% TYPE(TEXT) INTENS(HIGH) COLOR(RED) CAPS(OFF)'
+  stem.3 = '+ TYPE(TEXT) INTENS(LOW) CAPS(OFF)'
+  stem.4 = '_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)'
+  stem.5 = '$ TYPE(INPUT) INTENS(LOW) PAD(_)'
+  stem.6 = '! TYPE(OUTPUT) INTENS(LOW) COLOR(YELLOW)'
+  stem.7 = ')BODY'
+  stem.8 = '%-----------------------> ReXX PiNGeRaToR <---------------'
+  stem.9 = '%COMMAND ===>_ZCMD'
+  stem.10 = '%'
+  stem.11 = '+'
+  stem.12 = '+   iP/HoSTNaMe  .......$ip                            +'
+  stem.13 = '+   PiNG TiMeouT .......$timeout+'
+  stem.14 = '+'
+  stem.15 = '+   TaRGeT  : !tgt'
+  stem.16 = '+   TiMeouT : !tout'
+  stem.17 = '+'
+  stem.18 = '+'
+  stem.19 = '+   !hp'
+  stem.20 = '+'
+  stem.21 = '+'
+  stem.22 = ')INIT'
+  stem.23 = '.HELP = TUTORPAN'
+  stem.24 = ')REINIT'
+  stem.25 = ')PROC'
+  stem.26 = ')END'
+  F = RANDOM(100,999)||RANDOM(100,999)
+  FILE = "'"||USERID()||".T"||F
+  sysin = SYSDSN(FILE||"'")
+  IF (sysin^="OK") THEN
+   DO
+   "ALLOCATE DATASET("FILE"') CATALOG LRECL (80),
+   BLKSIZE(27920) RECFM(F B) DSORG(PO) TRACKS SPACE(1 5) DIR(30)"
+   "ALLOC FI(MYDD) DA("FILE"(TEMP1)') SHR REUSE"
+   "EXECIO * DISKW MYDD (STEM STEM. FINIS"
+   "FREE F(MYDD)"
+   RETURN FILE||"'"
+   END
+  RETURN 1
